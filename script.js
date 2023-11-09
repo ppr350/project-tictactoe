@@ -47,43 +47,34 @@ const player1 = createPlayer('Player 1', 'X');
 const player2 = createPlayer('Player 2', 'O');
 
 
-// An object to control the flow of the game
-
-// const listenToClick = (function() {
-//     const getBoxes = document.querySelectorAll('.box');
-//     for (i = 0; i < getBoxes.length; i++) {
-//         getBoxes[i].addEventListener('click', function(e) {
-//             console.log(this.id)
-//             if (this.innerText === '') {
-//                 this.innerText = 'X';
-//             } else {
-//                 return;
-//             }
-//         });
-//     }
-// })();
-
+// A function to allow players to add marks to a specific spot on the board
+// and then tie it to the dom, letting players click on the ganmboard to place their marker
 (function() {
 
     const gameLogic = {
 
         init: function() {
 
-            listenToClick();
-        }
-    },
+            this.listenToClick();
+        },
 
-    listenToClick = function() {
-        const getBoxes = document.querySelectorAll('.box');
-        for (i = 0; i < getBoxes.length; i++) {
-            getBoxes[i].addEventListener('click', makeMove)
+        listenToClick: function() {
+            const getBoxes = document.querySelectorAll('.box');
+            for (i = 0; i < getBoxes.length; i++) {
+                getBoxes[i].addEventListener('click', this.makeMove);
+            }
+        },
+
+        makeMove: function() {
+            if (this.innerText === '') {
+                this.innerText = 'X';
+            } else {
+                console.log('this box is not available');
+                return
+            }
         }
     };
 
-    makeMove = function() {
-        console.log('make move')
-
-    }
     gameLogic.init()
 
 })();
@@ -93,7 +84,7 @@ const player2 = createPlayer('Player 2', 'O');
 
 // })();
 
-// A function to allow players to add marks to a specific spot on the board, and then tie it to the dom, letting players click on the ganmboard to place their marker
+
 
 // Game logic to check for when the game is over, should check for 3-in-a-row and a tie
 
