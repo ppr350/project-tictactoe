@@ -58,6 +58,7 @@ const player2 = createPlayer('Player 2', 'O');
             this.listenToClick();
         },
 
+        // Listen to user's click on boxes
         listenToClick: function() {
             const getBoxes = document.querySelectorAll('.box');
             for (i = 0; i < getBoxes.length; i++) {
@@ -65,6 +66,7 @@ const player2 = createPlayer('Player 2', 'O');
             }
         },
 
+        // Put X or O to box
         makeMove: function() {
             if (this.innerText === '') {
                 this.innerText = 'X';
@@ -72,8 +74,15 @@ const player2 = createPlayer('Player 2', 'O');
                 console.log('this box is not available');
                 return
             }
+        },
+
+        // Switch player
+        switchPlayer: function() {
+            
         }
     };
+
+
 
     gameLogic.init()
 
