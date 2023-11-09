@@ -1,4 +1,5 @@
-// Store the gameboard as an array inside of a gameboard object, and pass it to DOM. The works is initialized by the 'init' funciton
+// Store the gameboard as an array inside of a gameboard object,
+// and pass it to DOM. The works is initialized by the 'init' function
 (function() {
 
     const gameBoard = {
@@ -29,6 +30,7 @@
             }
         }
     };
+
     gameBoard.init();
 
 })();
@@ -56,6 +58,7 @@ const player2 = createPlayer('Player 2', 'O');
         init: function() {
 
             this.listenToClick();
+            this.switchPlayer();
         },
 
         // Listen to user's click on boxes
@@ -78,7 +81,8 @@ const player2 = createPlayer('Player 2', 'O');
 
         // Switch player
         switchPlayer: function() {
-            
+            const { player, marker} = player1;
+            console.log(player1)
         }
     };
 
