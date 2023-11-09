@@ -1,46 +1,103 @@
-// Store the gameboard as an array inside of a gameboard object
-let gameboardObject = {
+// Store the gameboard as an array inside of a gameboard object, and pass it to DOM. The works is initialized by the 'init' funciton
+(function() {
 
-    gameboardArray: []
-}
+    const gameBoard = {
+ 
+        init: function() {
+
+            this.setBoard();
+            this.displayBoard();
+        },
+
+        setBoard: function() {
+            return board = [
+                1, 2, 3,
+                4, 5, 6,
+                7, 8, 9
+            ];
+        },
+        
+        // A function to render the contents of the gameboard array to the webpage
+        displayBoard: function() {
+            console.log('setting up gameboard')
+            let containerDiv = document.querySelector('#container');
+            for (let x = 0; x < 9; x++) {
+                let makeDiv = document.createElement('div');
+                makeDiv.setAttribute('id', board[x]);
+                makeDiv.setAttribute('class', 'box');
+                containerDiv.appendChild(makeDiv);
+            }
+        }
+    };
+    gameBoard.init();
+
+})();
+
 
 // Create players with factory function
+const createPlayer = (function(name, marker) {
+    const player = {};
+    player.name = name;
+    player.marker = marker;
+    return player;
+})
 
 // Players are stored in objects
+const player1 = createPlayer('Player 1', 'X');
+const player2 = createPlayer('Player 2', 'O');
+
 
 // An object to control the flow of the game
 
-const listenToClick = (function() {
-    const getBoxes = document.querySelectorAll('.box');
-    for (i = 0; i < getBoxes.length; i++) {
-        getBoxes[i].addEventListener('click', function(e) {
-            console.log(this.id)
-            if (this.innerText === '') {
-                this.innerText = 'X';
-            } else {
-                return;
-            }
-        });
+// const listenToClick = (function() {
+//     const getBoxes = document.querySelectorAll('.box');
+//     for (i = 0; i < getBoxes.length; i++) {
+//         getBoxes[i].addEventListener('click', function(e) {
+//             console.log(this.id)
+//             if (this.innerText === '') {
+//                 this.innerText = 'X';
+//             } else {
+//                 return;
+//             }
+//         });
+//     }
+// })();
+
+(function() {
+
+    const gameLogic = {
+
+        init: function() {
+
+            listenToClick();
+        }
+    },
+
+    listenToClick = function() {
+        const getBoxes = document.querySelectorAll('.box');
+        for (i = 0; i < getBoxes.length; i++) {
+            getBoxes[i].addEventListener('click', makeMove)
+        }
+    };
+
+    makeMove = function() {
+        console.log('make move')
+
     }
+    gameLogic.init()
+
 })();
 
 // Create display controller with module pattern
-let displayController = (function() {
+// let displayController = (function() {
 
-})();
-
-// Create game board with module pattern
-let board = (function() {
-
-})();
-
-// A function to render the contents of the gameboard array to the webpage
+// })();
 
 // A function to allow players to add marks to a specific spot on the board, and then tie it to the dom, letting players click on the ganmboard to place their marker
 
 // Game logic to check for when the game is over, should check for 3-in-a-row and a tie
 
-// An interface to allow players to put in their names, include a buttob to start / restart the game. Also add a display element that congratulates the winning player
+// An interface to allow players to put in their names, include a button to start / restart the game. Also add a display element that congratulates the winning player
 
 // As little code as possible, try tucking everything away inside of a module or factory
 

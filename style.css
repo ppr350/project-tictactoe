@@ -23,15 +23,19 @@ h2 {
     font-size: 1.2rem;
 }
 
-#board {
+#container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    width: 20em;
-    height: 20em;
+    width: 20rem;
+    height: 20rem;
+    margin: 0 auto;
 }
 
 .box {
     border: 1px solid blue;
+    background-color: pink;
+
+
 }
 
 .box:hover {
