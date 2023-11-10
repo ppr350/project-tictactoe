@@ -53,12 +53,23 @@ const player2 = createPlayer('Player 2', 'O');
 // and then tie it to the dom, letting players click on the ganmboard to place their marker
 (function() {
 
+    // const { name: player_1, marker: marker_X } = player1
+    // const { name: player_2, marker: marker_O } = player2
+    // console.log(player_1, marker_X, player_2, marker_O)
+    // console.log(player1)
+
+    let whosTurn = {}
+
     const gameLogic = {
 
         init: function() {
 
             this.listenToClick();
-            this.switchPlayer();
+            // whosTurn = player1;
+            console.log(whosTurn)
+  
+
+            // this.switchPlayer();
         },
 
         // Listen to user's click on boxes
@@ -72,7 +83,13 @@ const player2 = createPlayer('Player 2', 'O');
         // Put X or O to box
         makeMove: function() {
             if (this.innerText === '') {
-                this.innerText = 'X';
+                if (whosTurn = player1) {
+                    this.innerText = 'X';
+                    whosTurn = player2;
+                    console.log(whosTurn)
+                } else if (whosTurn = player2) {
+                    this.innerText = 'O';
+                }
             } else {
                 console.log('this box is not available');
                 return
@@ -80,10 +97,15 @@ const player2 = createPlayer('Player 2', 'O');
         },
 
         // Switch player
-        switchPlayer: function() {
-            const { player, marker} = player1;
-            console.log(player1)
-        }
+        // whosTurn: function() {
+        //     console.log(playerOne, markerX)
+
+        //     return function() {
+        //         if (whosTurn = player1) {
+                    
+        //         }
+        //     }
+        // }
     };
 
 
