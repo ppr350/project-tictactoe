@@ -58,7 +58,7 @@ const player2 = createPlayer('Player 2', 'O');
     // console.log(player_1, marker_X, player_2, marker_O)
     // console.log(player1)
 
-    let whosTurn = {}
+    let whosTurn = {player1, player2}
 
     const gameLogic = {
 
@@ -83,18 +83,31 @@ const player2 = createPlayer('Player 2', 'O');
         // Put X or O to box
         makeMove: function() {
             if (this.innerText === '') {
+                console.log(whosTurn)
+
+                // Switch players don't work yet
+                // debugger
                 if (whosTurn = player1) {
                     this.innerText = 'X';
-                    whosTurn = player2;
+                    whosTurn === player2;
                     console.log(whosTurn)
                 } else if (whosTurn = player2) {
                     this.innerText = 'O';
+                    whosTurn = player1
+                    console.log(whosTurn);
                 }
-            } else {
+                // whosTurn = player1 ? this.innerText = 'X' : this.innerText = 'O'
+            } else if (this.innerText !== '') {
                 console.log('this box is not available');
                 return
             }
         },
+
+        switchPlayer: function(player, marker) {
+            return function() {
+                makeMove = createPlayer;
+            };
+        }
 
         // Switch player
         // whosTurn: function() {
