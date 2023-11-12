@@ -18,7 +18,7 @@
             ];
         },
         
-        // A function to render the contents of the gameboard array to the webpage
+        // A function to render the contents of the gameboard array to the webpage :
         displayBoard: function() {
             console.log('setting up gameboard')
             let containerDiv = document.querySelector('#container');
@@ -48,28 +48,22 @@ const createPlayer = (function(name, marker) {
 const player1 = createPlayer('Player 1', 'X');
 const player2 = createPlayer('Player 2', 'O');
 
-
 // A function to allow players to add marks to a specific spot on the board
 // and then tie it to the dom, letting players click on the ganmboard to place their marker
 (function() {
 
-    // const { name: player_1, marker: marker_X } = player1
-    // const { name: player_2, marker: marker_O } = player2
-    // console.log(player_1, marker_X, player_2, marker_O)
-    // console.log(player1)
+    let whosTurn = player1;
 
-    let whosTurn = {player1, player2}
+    // These 2 arrays are for logging moves
+    let player1Moves = [];
+    let player2Moves = [];
 
     const gameLogic = {
 
         init: function() {
 
             this.listenToClick();
-            // whosTurn = player1;
-            console.log(whosTurn)
   
-
-            // this.switchPlayer();
         },
 
         // Listen to user's click on boxes
@@ -77,51 +71,45 @@ const player2 = createPlayer('Player 2', 'O');
             const getBoxes = document.querySelectorAll('.box');
             for (i = 0; i < getBoxes.length; i++) {
                 getBoxes[i].addEventListener('click', this.makeMove);
+                getBoxes[i].addEventListener('click', this.logMove);
+                getBoxes[i].addEventListener('click', this.checkWin);
             }
         },
 
-        // Put X or O to box
-        makeMove: function() {
-            if (this.innerText === '') {
-                console.log(whosTurn)
 
-                // Switch players don't work yet
-                // debugger
-                if (whosTurn = player1) {
+        // Put X or O to box; then switch player :
+        makeMove: function() {
+            if (this.innerText == '') {
+
+                if (whosTurn == player1) {
                     this.innerText = 'X';
-                    whosTurn === player2;
-                    console.log(whosTurn)
-                } else if (whosTurn = player2) {
+                    whosTurn = player2;
+                    // this following line is not working
+                    player1Moves.push(this.listenToClick.getBoxes[i])
+                } else if (whosTurn == player2) {
                     this.innerText = 'O';
-                    whosTurn = player1
-                    console.log(whosTurn);
+                    whosTurn = player1;
                 }
-                // whosTurn = player1 ? this.innerText = 'X' : this.innerText = 'O'
+
             } else if (this.innerText !== '') {
                 console.log('this box is not available');
                 return
             }
         },
 
-        switchPlayer: function(player, marker) {
-            return function() {
-                makeMove = createPlayer;
-            };
-        }
+        // Game logic to check for when the game is over, should check for 3-in-a-row and a tie :
+        checkWin: function() {
+            console.log('function to check if any player has won the game.');
+        },
 
-        // Switch player
-        // whosTurn: function() {
-        //     console.log(playerOne, markerX)
+        // Log players' moves:
+        logMove: function() {
+            console.log('function to record players move');
+            console.log(board)
+        },
 
-        //     return function() {
-        //         if (whosTurn = player1) {
-                    
-        //         }
-        //     }
-        // }
+
     };
-
-
 
     gameLogic.init()
 
@@ -134,7 +122,6 @@ const player2 = createPlayer('Player 2', 'O');
 
 
 
-// Game logic to check for when the game is over, should check for 3-in-a-row and a tie
 
 // An interface to allow players to put in their names, include a button to start / restart the game. Also add a display element that congratulates the winning player
 
