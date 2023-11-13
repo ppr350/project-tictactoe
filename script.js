@@ -79,13 +79,13 @@ const player2 = createPlayer('Player 2', 'O');
 
         // Put X or O to box; then switch player :
         makeMove: function() {
-            if (this.innerText == '') {
 
+            if (this.innerText == '') {
                 if (whosTurn == player1) {
                     this.innerText = 'X';
                     whosTurn = player2;
-                    // this following line is not working
-                    player1Moves.push(this.listenToClick.getBoxes[i])
+
+                    
                 } else if (whosTurn == player2) {
                     this.innerText = 'O';
                     whosTurn = player1;
