@@ -41,6 +41,7 @@ const createPlayer = (function(name, marker) {
     const player = {};
     player.name = name;
     player.marker = marker;
+    player.moves = [];
     return player;
 })
 
@@ -53,12 +54,20 @@ const player2 = createPlayer('Player 2', 'O');
 (function() {
 
     let whosTurn = player1;
-
-    // These 2 arrays are for logging moves
-    let player1Moves = [];
-    let player2Moves = [];
+    let gameInProgress = false;
 
     const gameLogic = {
+
+        gameOn: function() {
+            this.render()
+        },
+
+        render: function() {
+            const startGame = document.querySelector('#start-game');
+            startGame.addEventListener('click', this.init())  
+            console.log('render game');
+            gameInProgress = true;
+        },
 
         init: function() {
 
@@ -70,48 +79,98 @@ const player2 = createPlayer('Player 2', 'O');
         listenToClick: function() {
             const getBoxes = document.querySelectorAll('.box');
             for (i = 0; i < getBoxes.length; i++) {
-                getBoxes[i].addEventListener('click', this.makeMove);
-                getBoxes[i].addEventListener('click', this.logMove);
-                getBoxes[i].addEventListener('click', this.checkWin);
+                // All 'this' refers to the div elements that triggered the event, so I need to use 'this.makeMove.bind(this)' instead of just 'this.makeMove' to
+                // make it refers to the gameLogic object instead :
+                getBoxes[i].addEventListener('click', this.makeMove.bind(this));
             }
         },
 
-
         // Put X or O to box; then switch player :
-        makeMove: function() {
+        makeMove: function(e) {
+            // When a click is triggered, an 'event' is an object containing information about the action that just happened
+            // So when I'm interested in an 'event', it's when I add an 'eventListener' to the element I know will create 'event'
+            // the event parameter 'e' above locates the new 'event', and when I use 'e.target.innerText' in the if else statement below,
+            // it traces back to the click 'event' (which button is clicked in this case)
+            // Thank you u/jml26 on Reddit's r/learnJavascript for this
 
-            if (this.innerText == '') {
+            if (e.target.innerText == '') {
                 if (whosTurn == player1) {
-                    this.innerText = 'X';
+                    e.target.innerText = 'X';
+                    this.logMove(e)
                     whosTurn = player2;
-
+          
                     
                 } else if (whosTurn == player2) {
-                    this.innerText = 'O';
+                    e.target.innerText = 'O';
+                    this.logMove(e)
                     whosTurn = player1;
+                
                 }
 
-            } else if (this.innerText !== '') {
+            } else if (e.target.innerText !== '') {
                 console.log('this box is not available');
                 return
             }
         },
 
-        // Game logic to check for when the game is over, should check for 3-in-a-row and a tie :
-        checkWin: function() {
-            console.log('function to check if any player has won the game.');
+        // Log players' moves:
+        logMove: function(e) {
+            let regexPlayer1 = /1/;
+            let getBoxNum = e.target.id
+
+            if (regexPlayer1.test(whosTurn.name)) {
+                if (player1.moves.length < 4) {
+                    player1.moves.push(getBoxNum);
+                    whosTurn = player2;
+                    console.log(`Player 1 put the ${player1.marker} on box ${player1.moves}`);
+                    this.checkWin(player1);
+                } else {
+                    this.gameOver();
+                }
+            } else {
+                player2.moves.push(getBoxNum);
+                whosTurn = player1;
+                console.log(`Player 2 put the ${player2.marker} on box ${player2.moves}`);
+                this.checkWin(player2)
+            };
+
         },
 
-        // Log players' moves:
-        logMove: function() {
-            console.log('function to record players move');
-            console.log(board)
+        // Game logic to check for when the game is over, should check for 3-in-a-row and a tie :
+        checkWin: function(checkPlayer) {
+            console.log('function to check if any player has won the game.');
+            const winningCombos = [
+                [1, 2, 3],
+                [1, 5, 9],
+                [1, 4, 7],
+                [2, 5, 8],
+                [3, 6, 9],
+                [3, 5, 7],
+                [4, 5, 6],
+                [7, 8, 9],
+            ]
+
+            function findMatch(a, b) {
+                return a.some(nestedArray => nestedArray.toString() == b.toString());
+            }
+            
+            if (findMatch(winningCombos, checkPlayer.moves.sort())) {
+                console.log('winner')
+                this.gameOver();
+                this.init()
+            }
         },
+
+        // Call this function when there is no winner
+        gameOver: function() {
+            console.log('Game is over')
+        }
 
 
     };
 
-    gameLogic.init()
+    // gameLogic.init()
+    gameLogic.gameOn()
 
 })();
 
