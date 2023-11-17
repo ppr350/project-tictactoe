@@ -137,8 +137,7 @@ const player2 = createPlayer('Player 2', 'O');
         },
 
         // Game logic to check for when the game is over, should check for 3-in-a-row and a tie :
-        checkWin: function(checkPlayer) {
-            console.log('function to check if any player has won the game.');
+        checkWin: function(getPlayer) {
             const winningCombos = [
                 [1, 2, 3],
                 [1, 5, 9],
@@ -152,18 +151,19 @@ const player2 = createPlayer('Player 2', 'O');
 
             function findMatch(a, b) {
                 return a.some(nestedArray => nestedArray.toString() == b.toString());
-            }
+            };
             
-            if (findMatch(winningCombos, checkPlayer.moves.sort())) {
+            if (findMatch(winningCombos, getPlayer.moves.sort())) {
                 console.log('winner')
                 this.gameOver();
                 this.init()
-            }
+            };
         },
 
         // Call this function when there is no winner
         gameOver: function() {
             console.log('Game is over')
+
         }
 
 
