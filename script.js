@@ -4,8 +4,7 @@
 
     const gameBoard = {
  
-        init: function() {
-
+        init: function() {       
             this.setBoard();
             this.displayBoard();
         },
@@ -53,30 +52,46 @@ const player2 = createPlayer('Player 2', 'O');
 // and then tie it to the dom, letting players click on the ganmboard to place their marker
 (function() {
 
+    const form = document.querySelector('#form');
+    const startButton = document.querySelector('#start-game')
+    const showNameDialog = document.querySelector('#name-dialog');
+
     let whosTurn = player1;
-    let gameInProgress = false;
+    // let gameInProgress = false;
 
     const gameLogic = {
 
-        gameOn: function() {
-            this.render()
+        startGame: function(e) {
+
+            startButton.addEventListener('click', ()  => {
+                showNameDialog.showModal()
+            });
         },
 
-        render: function() {
-            const startGame = document.querySelector('#start-game');
-            startGame.addEventListener('click', this.init())  
-            console.log('render game');
-            gameInProgress = true;
+        submitForm: function() {
+            
+            form.addEventListener('submit', (e) => {          
+                e.preventDefault();
+                const customPlayer = document.querySelector('#input-name').value;
+                console.log(customPlayer);
+
+                showNameDialog.close();
+            })
+        },
+
+
+        render: function(e) {
+            console.log('start game')
+            this.listenToMove();
         },
 
         init: function() {
-
-            this.listenToClick();
-  
+            this.startGame()
+            // this.listenToMove();
         },
 
         // Listen to user's click on boxes
-        listenToClick: function() {
+        listenToMove: function() {
             const getBoxes = document.querySelectorAll('.box');
             for (i = 0; i < getBoxes.length; i++) {
                 // All 'this' refers to the div elements that triggered the event, so I need to use 'this.makeMove.bind(this)' instead of just 'this.makeMove' to
@@ -170,7 +185,7 @@ const player2 = createPlayer('Player 2', 'O');
     };
 
     // gameLogic.init()
-    gameLogic.gameOn()
+    gameLogic.init()
 
 })();
 

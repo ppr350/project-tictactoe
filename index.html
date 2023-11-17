@@ -10,11 +10,47 @@
 </head>
 <body>
 
-    <button id="start-game">Tic Tac Toe / Xs and Os</button>
+    <button class="button"
+            id="start-game">
+            Tic Tac Toe / Xs and Os
+    </button>
 
-    <div id="container">
+    <div id="container"></div>
 
-    </div>
+    <dialog id="name-dialog">
+        <form action="" method="dialog" id="form" name="name-form">
+            <fieldset>
+                <p class="insert-name">
+                    <label for="input-name">WHAT'S YOUR NAME?</label>
+                    <input
+                        type="text"
+                        id="input-name"
+                        name="input-name"
+                        placeholder="Player"
+                        minlength="1"
+                        maxlength="10" required>
+                </p>
+
+                <div id="close-dialog">
+                    <button
+                        class="button"
+                        id="confirm-button"
+                        type="submit">
+                        CONFIRM
+                    </button>
+                
+                    <button
+                        class="button"
+                        id="cancel-button"
+                        type="submit">
+                        CANCEL
+                    </button>
+                </div>
+
+            </fieldset>
+        </form>
+
+    </dialog>
     
 </body>
 </html>
