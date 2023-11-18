@@ -11,8 +11,13 @@
 <body>
 
     <button class="button"
-            id="start-game">
-            Tic Tac Toe / Xs and Os
+            id="start-game-vs-ai">
+            Xs and Os - vs Computer AI
+    </button>
+
+    <button class="button"
+            id="start-game-2-players">
+            XS and Os - 2 Players
     </button>
 
     <div id="container"></div>
@@ -38,10 +43,18 @@
                         type="submit">
                         CONFIRM
                     </button>
+
+                    <button
+                        class="button"
+                        id="no-name"
+                        type="submit">
+                        PLAY ANONYMOUSLY
+                    </button>
                 
                     <button
                         class="button"
                         id="cancel-button"
+                        value="cancel"
                         type="submit">
                         CANCEL
                     </button>
@@ -51,6 +64,17 @@
         </form>
 
     </dialog>
+
+    <div id="playerNames">
+        <div id="p1">
+            <p id="p1default-name">PLAYER 1</p>
+            <p id="p1custom-name"></p>
+        </div>
+        <div id="p2">
+            <p id="p1default-name">PLAYER 2</p>
+            <p id="p1custom-name"></p>
+        </div>
+    </div>
     
 </body>
 </html>

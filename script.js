@@ -52,42 +52,53 @@ const player2 = createPlayer('Player 2', 'O');
 // and then tie it to the dom, letting players click on the ganmboard to place their marker
 (function() {
 
-    const form = document.querySelector('#form');
-    const startButton = document.querySelector('#start-game')
+
+    const startButton = document.querySelector('#start-game-vs-ai');
     const showNameDialog = document.querySelector('#name-dialog');
+    const form = showNameDialog.querySelector('#form');
+    const confirm = form.querySelector('#confirm-button');
+    const noname = form.querySelector('#no-name');
+    const player1CustomName = document.querySelector('#p1custom-name');
 
     let whosTurn = player1;
     // let gameInProgress = false;
 
     const gameLogic = {
 
-        startGame: function(e) {
+        init: function() {
+            this.startGame()
+            // this.listenToMove();
+        },
 
+        startGame: function() {
             startButton.addEventListener('click', ()  => {
                 showNameDialog.showModal()
+                this.submitForm()
             });
         },
 
         submitForm: function() {
             
-            form.addEventListener('submit', (e) => {          
+            confirm.addEventListener('click', (e) => {          
                 e.preventDefault();
-                const customPlayer = document.querySelector('#input-name').value;
+                let customPlayer = document.querySelector('#input-name').value;
+                player1CustomName.innerText = customPlayer;
                 console.log(customPlayer);
-
                 showNameDialog.close();
-            })
-        },
+                this.render();
+            });
 
+            noname.addEventListener('click', () => {
+                console.log('Play without name');
+                showNameDialog.close();
+                this.render();
+            })
+
+        },
 
         render: function(e) {
             console.log('start game')
             this.listenToMove();
-        },
-
-        init: function() {
-            this.startGame()
-            // this.listenToMove();
         },
 
         // Listen to user's click on boxes
@@ -97,7 +108,7 @@ const player2 = createPlayer('Player 2', 'O');
                 // All 'this' refers to the div elements that triggered the event, so I need to use 'this.makeMove.bind(this)' instead of just 'this.makeMove' to
                 // make it refers to the gameLogic object instead :
                 getBoxes[i].addEventListener('click', this.makeMove.bind(this));
-            }
+            };
         },
 
         // Put X or O to box; then switch player :
