@@ -53,7 +53,8 @@ const player2 = createPlayer('Player 2', 'O');
 (function() {
 
 
-    const startButton = document.querySelector('#start-game-vs-ai');
+    const startButtonFor2Players = document.querySelector('#start-game-2-players');
+    const startButtonForPlayAgainstAi = document.querySelector('#start-game-vs-ai');
     const showNameDialog = document.querySelector('#name-dialog');
     const form = showNameDialog.querySelector('#form');
     const confirm = form.querySelector('#confirm-button');
@@ -71,16 +72,23 @@ const player2 = createPlayer('Player 2', 'O');
         },
 
         startGame: function() {
-            startButton.addEventListener('click', ()  => {
-                showNameDialog.showModal()
-                this.submitForm()
+            startButtonFor2Players.addEventListener('click', ()  => {
+                showNameDialog.showModal();
+                this.submitForm();
             });
+
+            startButtonForPlayAgainstAi.addEventListener('click', () => {
+                showNameDialog.showModal();
+                this.submitForm();
+            })
         },
 
         submitForm: function() {
             
             confirm.addEventListener('click', (e) => {          
                 e.preventDefault();
+                // make changes here to make current player (1 or 2) to insert name
+                document.querySelector('#input-name').placeholder = 'player1';
                 let customPlayer = document.querySelector('#input-name').value;
                 player1CustomName.innerText = customPlayer;
                 console.log(customPlayer);
