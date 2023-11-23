@@ -157,6 +157,13 @@ const player2 = createPlayer('Player 2', 'O');
             };
         },
 
+        deleteMove: function() {
+            const emptyBoxes = document.querySelector('.box');
+            for (i = 0; i < emptyBoxes.length; i++) {
+                emptyBoxes[i].innerText === '';
+            } 
+        },
+
         // Put X or O to box; then switch player :
         makeMove: function(e) {
             // When a click is triggered, an 'event' is an object containing information about the action that just happened
@@ -169,19 +176,16 @@ const player2 = createPlayer('Player 2', 'O');
                 if (whosTurn == player1) {
                     e.target.innerText = 'X';
                     this.logMove(e)
-                    whosTurn = player2;
-          
+                    whosTurn = player2;          
                     
                 } else if (whosTurn == player2) {
                     e.target.innerText = 'O';
                     this.logMove(e)
-                    whosTurn = player1;
-                
+                    whosTurn = player1;                   
+                } else if (e.target.innerText !== '') {
+                    console.log('this box is not available');
+                    return           
                 }
-
-            } else if (e.target.innerText !== '') {
-                console.log('this box is not available');
-                return
             }
         },
 
@@ -198,6 +202,7 @@ const player2 = createPlayer('Player 2', 'O');
                     this.checkWin(player1);
                 } else {
                     this.gameOver();
+                    
                 }
             } else {
                 player2.moves.push(getBoxNum);
@@ -208,12 +213,16 @@ const player2 = createPlayer('Player 2', 'O');
 
         },
 
-        clearBoard: function() {
+        clearBoard: function(e) {
             console.log('clearing up gameboard')
             const board = document.querySelector('#container').childNodes;
             for (let i = 0; i < board.length; i++) {
                 board[i].innerText = '';
+                player1.moves = [];
+                player2.moves = [];
             }
+            this.deleteMove();
+            whosTurn = player1;
         },
 
         // Game logic to check for when the game is over, should check for 3-in-a-row and a tie :
@@ -248,8 +257,6 @@ const player2 = createPlayer('Player 2', 'O');
 
 
     };
-
-    // gameLogic.init()
     gameLogic.init()
 
 })();
