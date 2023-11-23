@@ -31,6 +31,7 @@
     };
 
     gameBoard.init();
+    
 
 })();
 
@@ -52,32 +53,44 @@ const player2 = createPlayer('Player 2', 'O');
 // and then tie it to the dom, letting players click on the ganmboard to place their marker
 (function() {
 
-
     const startButtonFor2Players = document.querySelector('#start-game-2-players');
     const startButtonForPlayAgainstAi = document.querySelector('#start-game-vs-ai');
     const showNameDialog = document.querySelector('#name-dialog');
     const form = showNameDialog.querySelector('#form');
     const confirm = form.querySelector('#confirm-button');
     const noname = form.querySelector('#no-name');
-    const player1CustomName = document.querySelector('#p1custom-name');
+    const cancel = form.querySelector('#cancel-button');
+    const dialog = document.querySelector('#name-dialog');
+    let p1InputName = dialog.querySelector('#p1-input-name')
+    let p2InputName = dialog.querySelector('#p2-input-name')
+    let errorMessage = dialog.querySelector('#error-message');
+    let player1CustomName = document.querySelector('#p1-custom-name');
+    let player2CustomName = document.querySelector('#p2-custom-name');
 
     let whosTurn = player1;
-    // let gameInProgress = false;
 
     const gameLogic = {
 
         init: function() {
             this.startGame()
-            // this.listenToMove();
         },
 
         startGame: function() {
+            
+            // 2 Players mode
             startButtonFor2Players.addEventListener('click', ()  => {
+                p1InputName.value = '';
+                p2InputName.value = '';
+                p2InputName.placeholder = 'Your name';
                 showNameDialog.showModal();
                 this.submitForm();
             });
 
+            // VS AI
             startButtonForPlayAgainstAi.addEventListener('click', () => {
+                p1InputName.value = '';
+                p2InputName.value = '';
+                p2InputName.placeholder = 'Artificial Intelligent'
                 showNameDialog.showModal();
                 this.submitForm();
             })
@@ -87,25 +100,50 @@ const player2 = createPlayer('Player 2', 'O');
             
             confirm.addEventListener('click', (e) => {          
                 e.preventDefault();
-                // make changes here to make current player (1 or 2) to insert name
-                document.querySelector('#input-name').placeholder = 'player1';
-                let customPlayer = document.querySelector('#input-name').value;
-                player1CustomName.innerText = customPlayer;
-                console.log(customPlayer);
-                showNameDialog.close();
+                console.log('reach submitForm function')
+                console.log(p1InputName.value)
+                console.log(p2InputName.value)
+
+                // display error message for invalid name
+                if (p1InputName.value.length == 0) {
+                    errorMessage.innerText = 'Please fill in a name or press PLAY ANONYMOUSLY.'
+                    return
+
+                } if (p1InputName.value.length > 10 || p2InputName.value.length > 10) {
+                    errorMessage.innerText = 'Name is too long.'
+                    return
+
+                } else {
+                    // make changes here to make current player (1 or 2) to insert name
+                    this.getNames()
+                    showNameDialog.close();
+                };
+                  
                 this.render();
             });
 
             noname.addEventListener('click', () => {
                 console.log('Play without name');
+                player1CustomName.innerText = '';
+                player2CustomName.innerText = '';
                 showNameDialog.close();
                 this.render();
             })
 
+            cancel.addEventListener('click', (e) => {
+                showNameDialog.close();
+            })
+
+        },
+
+        getNames: function() {
+            player1CustomName.innerText = p1InputName.value;
+            player2CustomName.innerText = p2InputName.value;
         },
 
         render: function(e) {
             console.log('start game')
+            this.clearBoard()
             this.listenToMove();
         },
 
@@ -168,6 +206,14 @@ const player2 = createPlayer('Player 2', 'O');
                 this.checkWin(player2)
             };
 
+        },
+
+        clearBoard: function() {
+            console.log('clearing up gameboard')
+            const board = document.querySelector('#container').childNodes;
+            for (let i = 0; i < board.length; i++) {
+                board[i].innerText = '';
+            }
         },
 
         // Game logic to check for when the game is over, should check for 3-in-a-row and a tie :

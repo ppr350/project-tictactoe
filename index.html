@@ -26,15 +26,26 @@
         <form action="" method="dialog" id="form" name="name-form">
             <fieldset>
                 <p class="insert-name">
-                    <label for="input-name">WHAT'S YOUR NAME?</label>
+                    <label id="name-label" for="p1-input-name">Player 1</label>
                     <input
                         type="text"
-                        id="input-name"
+                        id="p1-input-name"
                         name="input-name"
-                        placeholder="Player"
+                        placeholder="Your name"
                         minlength="1"
                         maxlength="10" required>
                 </p>
+                <p class="insert-name">
+                    <label id="name-label" for="p2-input-name">Player 2</label>
+                    <input
+                        type="text"
+                        id="p2-input-name"
+                        name="input-name"
+                        placeholder="Your name"
+                        minlength="1"
+                        maxlength="10" required>
+                </p>
+                <p id="error-message"></p>
 
                 <div id="close-dialog">
                     <button
@@ -67,12 +78,12 @@
 
     <div id="playerNames">
         <div id="p1">
-            <p id="p1default-name">PLAYER 1</p>
-            <p id="p1custom-name"></p>
+            <p class="default-name">PLAYER 1</p>
+            <p id="p1-custom-name" class="custom-name"></p>
         </div>
         <div id="p2">
-            <p id="p1default-name">PLAYER 2</p>
-            <p id="p1custom-name"></p>
+            <p class="default-name">PLAYER 2</p>
+            <p id="p2-custom-name" class="custom-name"></p>
         </div>
     </div>
     
