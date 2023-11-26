@@ -238,9 +238,30 @@ const player2 = createPlayer('Player 2', 'O');
                 [7, 8, 9],
             ]
 
-            function findMatch(a, b) {
-                return a.some(nestedArray => nestedArray.toString() == b.toString());
-            };
+            // function findMatch(a, b) {
+            //     return a.some(nestedArray => nestedArray.toString() == b.toString());
+            // };
+
+            // function findMatch() {
+
+            //     for (let i = 0; winningCombos.length; i++) {
+            //         const conditions = winningCombos[i];
+
+            //     }
+            // }
+
+            // function findMatch(condition, moves) {
+            //     let moves = getPlayer.moves
+            //     const conditions = winningCombos
+            //     for (let i = 0; i < winningCombos.length; i++) {
+            //         debugger
+                    
+            //         console.log(conditions);
+            //         if (conditions[i].some((condition) => moves === condition )) {
+            //             console.log('found match')
+            //         }
+            //     }
+            // }
             
             if (findMatch(winningCombos, getPlayer.moves.sort())) {
                 console.log('winner')
