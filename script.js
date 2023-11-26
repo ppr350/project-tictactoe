@@ -242,13 +242,15 @@ const player2 = createPlayer('Player 2', 'O');
             //     return a.some(nestedArray => nestedArray.toString() == b.toString());
             // };
 
-            // function findMatch() {
-
-            //     for (let i = 0; winningCombos.length; i++) {
-            //         const conditions = winningCombos[i];
-
-            //     }
-            // }
+            function findMatch() {
+                console.log(getPlayer.moves)
+                for (let i = 0; i < winningCombos.length; i++) {
+                    
+                    if (winningCombos.includes(getPlayer.moves))
+                        console.log(getPlayer.moves)
+                    
+                }
+            }
 
             // function findMatch(condition, moves) {
             //     let moves = getPlayer.moves
