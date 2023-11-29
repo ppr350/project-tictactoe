@@ -150,11 +150,18 @@ const player2 = createPlayer('Player 2', 'O');
         // Listen to user's click on boxes
         listenToMove: function() {
             const getBoxes = document.querySelectorAll('.box');
-            for (i = 0; i < getBoxes.length; i++) {
+            for (let i = 0; i < getBoxes.length; i++) {
                 // All 'this' refers to the div elements that triggered the event, so I need to use 'this.makeMove.bind(this)' instead of just 'this.makeMove' to
                 // make it refers to the gameLogic object instead :
                 getBoxes[i].addEventListener('click', this.makeMove.bind(this));
             };
+        },
+
+        stopListenToMove: function() {
+            const getBoxes = document.querySelectorAll('.box');
+            for (let i = 0; i < getBoxes.length; i++) {
+                getBoxes[i].removeEventListener('click', this.makeMove);
+            }
         },
 
         deleteMove: function() {
@@ -192,7 +199,7 @@ const player2 = createPlayer('Player 2', 'O');
         // Log players' moves:
         logMove: function(e) {
             let regexPlayer1 = /1/;
-            let getBoxNum = e.target.id
+            let getBoxNum = parseInt(e.target.id)
 
             if (regexPlayer1.test(whosTurn.name)) {
                 if (player1.moves.length < 4) {
@@ -238,44 +245,21 @@ const player2 = createPlayer('Player 2', 'O');
                 [7, 8, 9],
             ]
 
-            // function findMatch(a, b) {
-            //     return a.some(nestedArray => nestedArray.toString() == b.toString());
-            // };
-
-            function findMatch() {
-                console.log(getPlayer.moves)
-                for (let i = 0; i < winningCombos.length; i++) {
-                    
-                    if (winningCombos.includes(getPlayer.moves))
-                        console.log(getPlayer.moves)
-                    
+            let includesEveryMove = (moves, winCombo) => winCombo.every(element => moves.includes(element))
+            for (let i = 0; i < winningCombos.length; i++) {
+                if (includesEveryMove(getPlayer.moves, winningCombos[i])) {
+                    console.log(getPlayer.moves, winningCombos[i]);
+                    console.log(`${getPlayer.name} has won this round`);
+                    this.gameOver();
+                    break
                 }
             }
-
-            // function findMatch(condition, moves) {
-            //     let moves = getPlayer.moves
-            //     const conditions = winningCombos
-            //     for (let i = 0; i < winningCombos.length; i++) {
-            //         debugger
-                    
-            //         console.log(conditions);
-            //         if (conditions[i].some((condition) => moves === condition )) {
-            //             console.log('found match')
-            //         }
-            //     }
-            // }
-            
-            if (findMatch(winningCombos, getPlayer.moves.sort())) {
-                console.log('winner')
-                this.gameOver();
-                this.init()
-            };
         },
 
-        // Call this function when there is no winner
+        // Call this function when there is no winner or someone has won
         gameOver: function() {
             console.log('Game is over')
-
+            this.stopListenToMove()
         }
 
 
