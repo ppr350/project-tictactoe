@@ -31,7 +31,6 @@
     };
 
     gameBoard.init();
-    
 
 })();
 
@@ -213,7 +212,6 @@ const player2 = createPlayer('Player 2', 'O');
                 console.log(`Player 2 put the ${player2.marker} on box ${player2.moves}`);
                 this.checkWin(player2)
             };
-
         },
 
         clearBoard: function(e) {
@@ -247,13 +245,7 @@ const player2 = createPlayer('Player 2', 'O');
                     console.log(getPlayer.moves, winningCombos[i]);
                     console.log(`${getPlayer.name} has won this round`);
                     announceWinner.innerText = `${getPlayer.name} has won this round`;
-                    this.gameOver();
-
-                    // let winner = getPlayer.name.replace(/\s+/g, '')+'CustomName';
-                    // console.log(winner.innerText)
-                    // console.log(`p + ${getPlayer.name.replace(/\D/g, '')} + InputName`.textContent)
-                    // console.log(winner.innerText)
-                    
+                    this.gameOver();                
                     break
                 }
             }
@@ -279,7 +271,6 @@ const player2 = createPlayer('Player 2', 'O');
                 showWinnerDialog.close();
                 this.clearBoard()
                 gameLogic.init();
-
             })
         },
 
