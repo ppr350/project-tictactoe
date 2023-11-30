@@ -10,15 +10,17 @@
 </head>
 <body>
 
-    <button class="button"
-            id="start-game-2-players">
-            XS and Os - 2 Players
-    </button>
+    <div id="button-container">
+        <button class="button"
+                id="start-game-2-players">
+                XS and Os - 2 Players
+        </button>
 
-    <button class="button"
-            id="start-game-vs-ai">
-            Xs and Os - vs Computer AI
-    </button>
+        <button class="button"
+                id="start-game-vs-ai">
+                Xs and Os - vs Computer AI
+        </button>
+    </div>
 
     <div id="container"></div>
 
@@ -76,13 +78,26 @@
 
     </dialog>
 
+    <dialog id="win-dialog">
+
+        <p id="announce-win"></p>
+
+        <button
+            class="button"
+            id="play-again"
+            type="submit">
+            PLAY AGAIN
+        </button>
+        
+    </dialog>
+
     <div id="playerNames">
         <div id="p1">
-            <p class="default-name">PLAYER 1</p>
+            <p class="default-name" data-default="name">PLAYER 1</p>
             <p id="p1-custom-name" class="custom-name"></p>
         </div>
         <div id="p2">
-            <p class="default-name">PLAYER 2</p>
+            <p class="default-name" data-default="name">PLAYER 2</p>
             <p id="p2-custom-name" class="custom-name"></p>
         </div>
     </div>

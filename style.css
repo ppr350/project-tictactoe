@@ -26,19 +26,80 @@ h2 {
 #container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    row-gap: 0px;
     width: 20rem;
     height: 20rem;
     margin: 0 auto;
 }
 
 .box {
-    border: 1px solid blue;
-    background-color: pink;
-
-
+    border: 1px solid black;
+    background-color: white;
+    width: 7rem;
+    height: 7rem;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 7em;
 }
 
 .box:hover {
-    background-color: rgb(251, 211, 217);
+    background-color: grey;
+}
+
+button {
+    cursor: pointer;
+    border: 1px solid #000001;
+    border-radius: 5px;
+    padding: calc(0.5vmin + 0.3px);
+    margin: calc(0.1vmin + 0.1px);
+    background-color: rgb(255, 255, 255);
+    /* the following 3 lines of code solved problem of Safari on mobile not displaying desired text colour */
+    -webkit-text-fill-color: #000001;
+    -webkit-opacity: 1;
+    color: #000001;
+}
+
+dialog {
+    background-color: white;
+    padding: 1em;
+    max-width: 50ch;
+    border: 0;
+    box-shadow: 0 0 1em rgb(0 0 0 / .3);
+    /* the following 3 lines make the modal dialog centered */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.5s;
+}
+
+dialog::backdrop {
+    background: grey;
+    opacity: .9;
+}
+
+#button-container {
+    display: flex;
+    justify-content: center;
+    padding: 2em;
+}
+
+#win-dialog[open] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1em;
+    margin: 3em;
+    width: 50em;
+}
+
+#win-dialog > * {
+    text-align: center;
+
+}
+
+#playerNames {
+    display: flex;
+    justify-content: space-around;
+    padding: 2em;
 }
 

@@ -56,14 +56,17 @@ const player2 = createPlayer('Player 2', 'O');
     const startButtonFor2Players = document.querySelector('#start-game-2-players');
     const startButtonForPlayAgainstAi = document.querySelector('#start-game-vs-ai');
     const showNameDialog = document.querySelector('#name-dialog');
+    const showWinnerDialog = document.querySelector('#win-dialog');
     const form = showNameDialog.querySelector('#form');
     const confirm = form.querySelector('#confirm-button');
     const noname = form.querySelector('#no-name');
     const cancel = form.querySelector('#cancel-button');
-    const dialog = document.querySelector('#name-dialog');
-    let p1InputName = dialog.querySelector('#p1-input-name')
-    let p2InputName = dialog.querySelector('#p2-input-name')
-    let errorMessage = dialog.querySelector('#error-message');
+    const nameDialog = document.querySelector('#name-dialog');
+    const winnerDialog = document.querySelector('#win-dialog');
+    let p1InputName = nameDialog.querySelector('#p1-input-name');
+    let p2InputName = nameDialog.querySelector('#p2-input-name');
+    let errorMessage = nameDialog.querySelector('#error-message');
+    let announceWinner = winnerDialog.querySelector('#announce-win');
     let player1CustomName = document.querySelector('#p1-custom-name');
     let player2CustomName = document.querySelector('#p2-custom-name');
 
@@ -157,13 +160,6 @@ const player2 = createPlayer('Player 2', 'O');
             };
         },
 
-        stopListenToMove: function() {
-            const getBoxes = document.querySelectorAll('.box');
-            for (let i = 0; i < getBoxes.length; i++) {
-                getBoxes[i].removeEventListener('click', this.makeMove);
-            }
-        },
-
         deleteMove: function() {
             const emptyBoxes = document.querySelector('.box');
             for (i = 0; i < emptyBoxes.length; i++) {
@@ -250,30 +246,47 @@ const player2 = createPlayer('Player 2', 'O');
                 if (includesEveryMove(getPlayer.moves, winningCombos[i])) {
                     console.log(getPlayer.moves, winningCombos[i]);
                     console.log(`${getPlayer.name} has won this round`);
+                    announceWinner.innerText = `${getPlayer.name} has won this round`;
                     this.gameOver();
+
+                    // let winner = getPlayer.name.replace(/\s+/g, '')+'CustomName';
+                    // console.log(winner.innerText)
+                    // console.log(`p + ${getPlayer.name.replace(/\D/g, '')} + InputName`.textContent)
+                    // console.log(winner.innerText)
+                    
                     break
                 }
             }
         },
 
         // Call this function when there is no winner or someone has won
-        gameOver: function() {
+        gameOver: function(getPlayer) {
             console.log('Game is over')
-            this.stopListenToMove()
-        }
+            // console.log(getPlayer.names)
+            this.winningModal();
+        },
 
+        // Announce winner
+        winningModal: function(getPlayer) {
+            // console.log()
+            // announceWinner.innerText = getPlayer.name
+            showWinnerDialog.showModal();
+            this.playAgain();
+        },
+
+        playAgain: function() {
+            document.querySelector('#play-again').addEventListener('click', (e) => {
+                showWinnerDialog.close();
+                this.clearBoard()
+                gameLogic.init();
+
+            })
+        },
 
     };
     gameLogic.init()
 
 })();
-
-// Create display controller with module pattern
-// let displayController = (function() {
-
-// })();
-
-
 
 
 // An interface to allow players to put in their names, include a button to start / restart the game. Also add a display element that congratulates the winning player
