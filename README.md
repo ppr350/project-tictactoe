@@ -55,8 +55,13 @@ The colour scheme here is mainly black and white to maximize contrast.
 ## Special Thanks
 
 [The Odin Projects and its Discord community, thank you for providing such an amazing course](https://www.theodinproject.com/)
+
 [MDN Web Doc for the awesome documentation](https://developer.mozilla.org/en-US/)
+
 [Stack Overflow](https://stackoverflow.com/)
+
 [Tomek Buszewski's blog post about Module pattern](https://dev.to/tomekbuszewski/module-pattern-in-javascript-56jm)
+
 [This Youtube series about Modular JavaScript by LearnCode.academy](https://www.youtube.com/playlist?list=PLoYCgNOIyGABs-wDaaxChu82q_xQgUb4f)
+
 [Dave Gray's YouTube videos about Closures and IIFE](https://www.youtube.com/@DaveGrayTeachesCode)
